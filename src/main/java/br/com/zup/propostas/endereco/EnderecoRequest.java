@@ -4,8 +4,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class EnderecoRequest {
+	
 	@NotBlank
-	private String rua;
+	private String cep;
+	
+	@NotBlank
+	private String logradouro;
 	
 	@NotNull
 	private int numero;
@@ -13,23 +17,27 @@ public class EnderecoRequest {
 	@NotBlank
 	private String complemento;
 	
+	@NotBlank
+    private String bairro;
+	
 	@NotBlank	
 	private String cidade;
 	
 	@NotBlank
 	private String estado;
-
-	public EnderecoRequest(@NotBlank String rua, @NotNull int numero, @NotBlank String complemento,
-			@NotBlank String cidade, @NotBlank String estado) {
-		this.rua = rua;
+	
+	public EnderecoRequest(@NotBlank String cep, @NotBlank String logradouro, @NotNull int numero,
+			@NotBlank String complemento, @NotBlank String bairro, @NotBlank String cidade, @NotBlank String estado) {
+		this.cep = cep;
+		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
+		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
 	}
-	
+
 	public Endereco toModel() {
-		return new Endereco(rua, numero, complemento, cidade, estado);
+		return new Endereco(cep, logradouro, numero, complemento, bairro, cidade, estado);
 	}
-	
 }

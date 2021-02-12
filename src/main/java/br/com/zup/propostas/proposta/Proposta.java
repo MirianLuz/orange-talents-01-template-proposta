@@ -2,18 +2,22 @@ package br.com.zup.propostas.proposta;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import br.com.zup.propostas.cartao.Cartao;
 import br.com.zup.propostas.endereco.Endereco;
-import br.com.zup.propostas.validation.CPFOuCNPJ;
 
 @Entity
 public class Proposta {
@@ -22,7 +26,7 @@ public class Proposta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@CPFOuCNPJ
+//	@CPFOuCNPJ
 	private String documento;
 	
 	@Email
@@ -33,13 +37,23 @@ public class Proposta {
 	private String nome;
 	
 	@NotNull
-	@ManyToOne
+	@Embedded
 	private Endereco endereco;
 	
 	@NotNull @Positive
 	private BigDecimal salario;
 
-	public Proposta(String documento, @Email @NotBlank String email, @NotBlank String nome, Endereco endereco,
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	@OneToOne(mappedBy = "proposta", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private Cartao cartao;
+	
+	@Deprecated
+	public Proposta() {
+	}
+
+	public Proposta(String documento, @Email @NotBlank String email, @NotBlank String nome, @NotNull Endereco endereco,
 			@NotNull @Positive BigDecimal salario) {
 		this.documento = documento;
 		this.email = email;
@@ -51,11 +65,47 @@ public class Proposta {
 	public Long getId() {
 		return id;
 	}
+	
+	public String getDocumento() {
+		return documento;
+	}
 
+	public String getNome() {
+		return nome;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+	
+	public Cartao getCartao() {
+		return cartao;
+	}
+
+	public void atualizaStatus(String solicitacao) {
+		this.status = Status.resultadoPara(solicitacao);		
+	}
+	
+	public void associaCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
+	
 	@Override
 	public String toString() {
-		return "Proposta [id=" + id + ", documento=" + documento + ", email=" + email + ", nome=" + nome + ", salario="
-				+ salario + "]";
+		return "Proposta [id=" + id + ", documento=" + documento + ", email=" + email + ", nome=" + nome + ", endereco="
+				+ endereco + ", salario=" + salario + ", status=" + status + ", cartao=" + cartao + "]";
 	}
 
 }
