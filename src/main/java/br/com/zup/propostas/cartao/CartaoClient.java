@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.zup.propostas.proposta.Proposta;
 
-@FeignClient(name="cartaoClient", url="localhost:8888/api/cartoes")
+@FeignClient(name="cartaoClient", url="${service.cartao.url}")
 public interface CartaoClient {
 
 	@GetMapping

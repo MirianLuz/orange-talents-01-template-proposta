@@ -46,6 +46,10 @@ public class Cartao {
 		this.limite = limite;
 		this.proposta = proposta;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
 	public String getNumero() {
 		return numero;
