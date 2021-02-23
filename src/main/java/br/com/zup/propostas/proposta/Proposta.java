@@ -44,7 +44,7 @@ public class Proposta {
 	private BigDecimal salario;
 
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private StatusProposta status;
 	
 	@OneToOne(mappedBy = "proposta", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Cartao cartao;
@@ -86,7 +86,7 @@ public class Proposta {
 		return salario;
 	}
 
-	public Status getStatus() {
+	public StatusProposta getStatus() {
 		return status;
 	}
 	
@@ -95,7 +95,7 @@ public class Proposta {
 	}
 
 	public void atualizaStatus(String solicitacao) {
-		this.status = Status.resultadoPara(solicitacao);		
+		this.status = StatusProposta.resultadoPara(solicitacao);		
 	}
 	
 	public void associaCartao(Cartao cartao) {

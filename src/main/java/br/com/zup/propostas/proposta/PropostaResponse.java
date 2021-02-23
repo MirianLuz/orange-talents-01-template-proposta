@@ -16,7 +16,7 @@ public class PropostaResponse {
 	
 	private BigDecimal salario;
 
-	private Status status;
+	private StatusProposta status;
 
 	public PropostaResponse(Proposta proposta) {
 		this.documento = proposta.getDocumento();
@@ -47,7 +47,7 @@ public class PropostaResponse {
 		return salario;
 	}
 
-	public Status getStatus() {
+	public StatusProposta getStatus() {
 		return status;
 	}
 

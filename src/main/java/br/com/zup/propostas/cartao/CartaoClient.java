@@ -12,7 +12,7 @@ import br.com.zup.propostas.proposta.Proposta;
 @FeignClient(name="cartaoClient", url="${service.cartao.url}")
 public interface CartaoClient {
 
-	@GetMapping
+	@GetMapping("/api/cartoes")
 	ConsultaCartaoResponse consultaCartao(@RequestParam("idProposta") String idProposta);
 	
 	class ConsultaCartaoResponse{
