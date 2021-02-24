@@ -61,6 +61,7 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
       POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
+      #KEYCLOAK_FRONTEND_URL: http://keycloak:8080/auth
 
   analise:
     image: 'zupacademy/analise-financeira'
@@ -142,25 +143,30 @@ services:
       - mysql-propostas
       - analise
       - contas
-    container_name: proposta
+      - keycloak
+    container_name: mysql-propostas
     image: mirianluz21/proposta
     ports:
-     - 8080:8080
+     - 8081:8081
     environment:
      - SPRING_PROFILES_ACTIVE=prod
      - DATABASE_PASSWORD=zupper
      - DATABASE_USERNAME=root
-     - DATABASE_URL=jdbc:mysql://mysql-propostas:3306/zup_propostas
-     - SERVICE_ANALISE_SOLICITACAO=analise:9999/api/solicitacao
-     - SERVICE_CARTAO=contas:8888/api/cartoes 
+     - DATABASE_URL=jdbc:mysql://mysql-propostas:3306/zup_propostas?serverTimezone=UTC
+     - DATABASE_DRIVER=com.mysql.cj.jdbc.Driver
+     - SERVICE_ANALISE_SOLICITACAO=analise:9999
+     - SERVICE_CARTAO=contas:8888 
+     - KEYCLOAK_ISSUER_URI=http://keycloak:8080/auth/realms/propostas
+     - KEYCLOAK_JWKS_URI=http://keycloak:8080/auth/realms/propostas/protocol/openid-connect/certs
 
   mysql-propostas:
-    image: mysql:5.7
+    image: 'mysql'
     expose:
      - 3306
     ports:
      - 3307:3306
     environment:
+     - MYSQL_ROOT_USER=root
      - MYSQL_ROOT_PASSWORD=zupper
      - MYSQL_DATABASE=zup_propostas
      - MYSQL_ROOT_HOST=%
