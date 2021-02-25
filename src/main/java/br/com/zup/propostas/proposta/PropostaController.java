@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +18,7 @@ import feign.FeignException;
 @RequestMapping("/api/propostas")
 public class PropostaController {
 
-	@Autowired
-	private PropostaRepository propostaRepository;
+	private final PropostaRepository propostaRepository;
 
 	private final AnaliseClient analiseClient;
 
@@ -36,7 +34,6 @@ public class PropostaController {
 			HashMap<String, Object> resposta = new HashMap<>();
 			resposta.put("mensagem", "Já existe documento cadastrado");
 			return ResponseEntity.unprocessableEntity().body(resposta);
-
 		}
 
 		Proposta proposta = request.toModel();

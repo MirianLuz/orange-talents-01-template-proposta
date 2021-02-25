@@ -3,6 +3,7 @@ package br.com.zup.propostas.proposta;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +19,8 @@ import javax.validation.constraints.Positive;
 
 import br.com.zup.propostas.cartao.Cartao;
 import br.com.zup.propostas.endereco.Endereco;
+import br.com.zup.propostas.util.CryptograpyAttributeConverter;
+import br.com.zup.propostas.validation.CPFOuCNPJ;
 
 @Entity
 public class Proposta {
@@ -26,7 +29,8 @@ public class Proposta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@CPFOuCNPJ
+	@CPFOuCNPJ
+    @Convert(converter = CryptograpyAttributeConverter.class)
 	private String documento;
 	
 	@Email
