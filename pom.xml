@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<opentracing-spring-jager.version>3.2.0</opentracing-spring-jager.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -80,6 +81,12 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+			<version>${opentracing-spring-jager.version}</version>
 		</dependency>
 	</dependencies>
 

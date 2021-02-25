@@ -165,6 +165,8 @@ services:
      - 3306
     ports:
      - 3307:3306
+    volumes:
+      - zup-propostas-mysql-volume:/var/lib/mysql
     environment:
      - MYSQL_ROOT_USER=root
      - MYSQL_ROOT_PASSWORD=zupper
@@ -175,3 +177,4 @@ volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
+  zup-propostas-mysql-volume:
