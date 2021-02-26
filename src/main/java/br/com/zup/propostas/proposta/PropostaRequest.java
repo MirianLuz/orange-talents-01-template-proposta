@@ -8,9 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zup.propostas.endereco.EnderecoRequest;
+import br.com.zup.propostas.validation.CPFOuCNPJ;
 
 public class PropostaRequest {
-//	@CPFOuCNPJ
+	@CPFOuCNPJ
 	private String documento;
 	
 	@Email

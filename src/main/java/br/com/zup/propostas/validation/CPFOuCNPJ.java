@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Documented
 @Constraint(validatedBy = { })
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @CPF
 @CNPJ
